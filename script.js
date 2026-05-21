@@ -1,90 +1,173 @@
-/*             // Prevent making a move onto the exact same grid point
-            if (prevRow === row && prevCol === col) {
-      /* ==========================================================================
-   KINGMASTER PREMIUM ESPORTS THEME — LUXURY BLACK & NEON GLOW SYSTEM
+/* ==========================================================================
+   KINGMASTER PREMIUM ESPORTS — PHASE 1 SYSTEM LOGIC
    ========================================================================== */
 
-:root {
-    --bg-deep-black: #050507;
-    --card-bg: #0d0d12;
-    --sub-box-bg: #13131c;
+document.addEventListener('DOMContentLoaded', () => {
+    // Screens Tracking Elements
+    const homeScreen = document.getElementById('home-screen');
+    const gameScreen = document.getElementById('game-screen');
     
-    /* Neon Accent Colors */
-    --accent-purple: #8257e5;
-    --accent-blue: #248aff;
-    --accent-green: #10b981;
-    --accent-gold: #f59e0b;
-    --accent-gold-gradient: linear-gradient(90deg, #f59e0b 0%, #eab308 100%);
+    // Navigation Triggers
+    const navPlayTrigger = document.getElementById('nav-play-trigger');
+    const btnBackLobby = document.getElementById('btn-back-lobby');
+    const btnResign = document.getElementById('btn-resign');
+    const btnFlip = document.getElementById('btn-flip');
     
-    /* Text Variables */
-    --text-white: #ffffff;
-    --text-gray: #9ca3af;
-    --text-muted: #6b7280;
-    
-    /* Board Variables */
-    --board-light: #dec096;
-    --board-dark: #8b5a2b;
-}
+    // Quick Match Action Boxes
+    const actionButtons = [
+        'btn-friend-free', 'btn-friend-paid', 
+        'btn-lobby-free', 'btn-lobby-paid'
+    ];
 
-* {
-    box-sizing:
-          clearHighlights(squares);
-                selectedSquare = null;
-                return;
+    // Board Element & Logic Mapping Coordinates
+    const chessboard = document.getElementById('kingarena-board');
+    let selectedSquare = null;
+    let isBoardFlipped = false;
+
+    // Standard Chess Logic Starting Matrix Setup
+    const initialBoardLayout = [
+        ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'], // Black Back Row
+        ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'], // Black Pawns
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'], // White Pawns
+        ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']  // White Back Row
+    ];
+
+    let currentBoardState = JSON.parse(JSON.stringify(initialBoardLayout));
+
+    // ==================== SCREEN SWITCHING SYSTEMS ====================
+
+    // Open Chess Arena function
+    const openGameArena = () => {
+        homeScreen.classList.remove('active');
+        gameScreen.classList.add('active');
+        generatePremiumBoard();
+    };
+
+    // Close Chess Arena and return to Lobby
+    const returnToLobby = () => {
+        gameScreen.classList.remove('active');
+        homeScreen.classList.add('active');
+        selectedSquare = null;
+    };
+
+    // 1. Bottom Menu Navigation 'Play' Icon Click
+    if (navPlayTrigger) {
+        navPlayTrigger.addEventListener('click', openGameArena);
+    }
+
+    // 2. Direct Game Mode Click Targets (Free & Paid Cards Setup)
+    actionButtons.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', openGameArena);
+    });
+
+    // 3. Game Top Bar 'Lobby' Back Button
+    if (btnBackLobby) {
+        btnBackLobby.addEventListener('click', returnToLobby);
+    }
+
+    // 4. Match Resign Action
+    if (btnResign) {
+        btnResign.addEventListener('click', () => {
+            if (confirm("Are you sure you want to resign this match?")) {
+                returnToLobby();
             }
+        });
+    }
 
-            // Move Execution Sequence Update
-            const movingPieceSymbol = currentBoardState[prevRow][prevCol];
-            currentBoardState[row][col] = movingPieceSymbol;
-            currentBoardState[prevRow][prevCol] = '';
+    // ==================== REAL TIME BOARD MATRIX RENDERER ====================
 
-            // Update Graphical History Log List Panel UI
-            logEsportsMove(movingPieceSymbol, prevRow, prevCol, row, col);
+    function generatePremiumBoard() {
+        if (!chessboard) return;
+        chessboard.innerHTML = ''; // Clear Old Framework
+        
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                // Calculation vectors for Board flip system rotation
+                const actualRow = isBoardFlipped ? (7 - row) : row;
+                const actualCol = isBoardFlipped ? (7 - col) : col;
 
-            // Reset selection values and regenerate screen state mapping
-            selectedSquare = null;
-            clearHighlights(squares);
-            generatePremiumBoard();
+                const square = document.createElement('div');
+                square.classList.add('square');
+                
+                // Classic Alternate Dark & Light Grid formula
+                if ((actualRow + actualCol) % 2 === 0) {
+                    square.classList.add('light');
+                } else {
+                    square.classList.add('dark');
+                }
 
-            // Highlight the target square destination boundary point
-            const targetSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
-            if (targetSquare) targetSquare.classList.add('last-move');
-            
-        } else {
-            // Step B: Select target piece if clicked coordinate contains an active token symbol
-            if (clickedPiece !== '') {
-                selectedSquare = { row, col };
-                clearHighlights(squares);
+                square.setAttribute('data-row', actualRow);
+                square.setAttribute('data-col', actualCol);
 
-                // Apply premium accent color ring border around selected icon base box
-                const activeSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
-                if (activeSquare) activeSquare.classList.add('selected');
+                // Print Chess Token Text Symbol
+                const pieceSymbol = currentBoardState[actualRow][actualCol];
+                if (pieceSymbol !== '') {
+                    const pieceElement = document.createElement('div');
+                    pieceElement.classList.add('piece');
+                    pieceElement.innerText = pieceSymbol;
+                    
+                    // Design Color Contrast tuning for clean UI view
+                    const charCode = pieceSymbol.charCodeAt(0);
+                    if (charCode >= 9812 && charCode <= 9817) {
+                        pieceElement.style.color = '#ffffff'; // White Pieces
+                        pieceElement.style.filter = 'drop-shadow(1px 2px 2px #000)';
+                    } else {
+                        pieceElement.style.color = '#111116'; // Black Pieces
+                        pieceElement.style.filter = 'drop-shadow(1px 1px 1px rgba(255,255,255,0.3))';
+                    }
+                    
+                    square.appendChild(pieceElement);
+                }
+
+                // Add standard mobile click handling action listeners
+                square.addEventListener('click', () => handleSquareClicks(actualRow, actualCol));
+                chessboard.appendChild(square);
             }
         }
     }
 
-    function clearHighlights(squares) {
-        squares.forEach(sq => {
-            sq.classList.remove('selected');
-            sq.classList.remove('last-move');
+    // Flip View Command Action Handler
+    if (btnFlip) {
+        btnFlip.addEventListener('click', () => {
+            isBoardFlipped = !isBoardFlipped;
+            generatePremiumBoard();
         });
     }
 
-    // Classic Notation Logging Formula Converter for Side Action Panel
-    function logEsportsMove(piece, fromR, fromC, toR, toC) {
-        const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-        const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
+    // ==================== MOVE CONTROL LOGIC HANDLING ====================
+
+    function handleSquareClicks(row, col) {
+        const squares = document.querySelectorAll('.square');
+        const clickedPiece = currentBoardState[row][col];
         
-        const moveNotation = `${files[toC]}${ranks[toR]}`;
-        
-        const moveBadge = document.createElement('span');
-        moveBadge.style.background = '#1a1a24';
-        moveBadge.style.padding = '2px 6px';
-        moveBadge.style.borderRadius = '4px';
-        moveBadge.style.border = '1px solid #333';
-        moveBadge.innerText = moveNotation;
-        
-        moveListContainer.appendChild(moveBadge);
-        moveListContainer.scrollTop = moveListContainer.scrollHeight; // Auto Scroll
-    }
-});
+        // Scenario A: Move piece to clicked square coords if a tile was highlighted already
+        if (selectedSquare) {
+            const prevRow = selectedSquare.row;
+            const prevCol = selectedSquare.col;
+
+            if (prevRow === row && prevCol === col) {
+                clearVisualHighlights(squares);
+                selectedSquare = null;
+                return;
+            }
+
+            // Move token data state transition execution
+            currentBoardState[row][col] = currentBoardState[prevRow][prevCol];
+            currentBoardState[prevRow][prevCol] = '';
+
+            selectedSquare = null;
+            clearVisualHighlights(squares);
+            generatePremiumBoard();
+
+            // Highlight Target Move End Boundary Box
+            const targetSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
+            if (targetSquare) targetSquare.classList.add('last-move');
+            
+        } else {
+            // Scenario B: Highlight target square coordinate
+
