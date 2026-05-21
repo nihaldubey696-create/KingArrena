@@ -1,18 +1,28 @@
+
 /* ==========================================================================
-   KINGARENA PREMIUM ESPORTS CHESS — PHASE 1 SYSTEM STYLES
+   KINGMASTER PREMIUM ESPORTS THEME — LUXURY BLACK & NEON GLOW SYSTEM
    ========================================================================== */
 
 :root {
-    --bg-dark: #0a0a0c;
-    --panel-dark: #121216;
-    --accent-gold: #d4af37;
-    --accent-blue: #00d2ff;
-    --text-main: #ffffff;
-    --text-muted: #8a8a93;
+    --bg-deep-black: #050507;
+    --card-bg: #0d0d12;
+    --sub-box-bg: #13131c;
+    
+    /* Neon Accent Colors */
+    --accent-purple: #8257e5;
+    --accent-blue: #248aff;
+    --accent-green: #10b981;
+    --accent-gold: #f59e0b;
+    --accent-gold-gradient: linear-gradient(90deg, #f59e0b 0%, #eab308 100%);
+    
+    /* Text Variables */
+    --text-white: #ffffff;
+    --text-gray: #9ca3af;
+    --text-muted: #6b7280;
+    
+    /* Board Variables */
     --board-light: #dec096;
     --board-dark: #8b5a2b;
-    --highlight-move: rgba(0, 210, 255, 0.4);
-    --highlight-selected: rgba(212, 175, 55, 0.5);
 }
 
 * {
@@ -24,17 +34,16 @@
 }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    overflow-x: hidden;
+    background-color: var(--bg-deep-black);
+    color: var(--text-white);
     height: 100vh;
+    overflow-x: hidden;
 }
 
-/* Screen Management */
+/* Screen Configuration */
 .screen {
     display: none;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
 }
 
 .screen.active {
@@ -42,228 +51,437 @@ body {
     flex-direction: column;
     opacity: 1;
     min-height: 100vh;
+    padding-bottom: 75px; /* space for bottom navbar */
 }
 
-/* ==================== HOME SCREEN ==================== */
-
-.top-bar {
+/* ==================== APP HEADER STYLE ==================== */
+.app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background-color: var(--panel-dark);
-    border-bottom: 1px solid #22222a;
+    background-color: rgba(13, 13, 18, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.avatar-wrapper {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #1f1f2e;
-    border: 2px solid var(--accent-blue);
-    overflow: hidden;
-}
-
-.avatar {
-    width: 100%;
-    height: 100%;
-}
-
-.user-meta {
-    display: flex;
-    flex-direction: column;
-}
-
-.username {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.rating-badge {
-    font-size: 11px;
-    color: var(--accent-blue);
-    font-family: 'Orbitron', sans-serif;
-}
-
-.top-actions {
+.profile-area {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.coin-balance {
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #1e1e24;
+    border: 2px solid #10b981; /* Online status color indicator */
+}
+
+.username-row {
     display: flex;
     align-items: center;
     gap: 6px;
-    background: #1c1c24;
+}
+
+.user-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.gold-text { color: var(--accent-gold); }
+
+.user-stats-mini {
+    font-size: 11px;
+    color: var(--text-gray);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Wallet Coin Pill */
+.coin-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #111118;
     padding: 6px 12px;
     border-radius: 20px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.coin-gold {
+    color: var(--accent-gold);
+}
+
+.balance-num {
     font-family: 'Orbitron', sans-serif;
     font-size: 13px;
-}
-
-.gold-color { color: var(--accent-gold); }
-.neon-blue { color: var(--accent-blue); }
-
-.icon-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 18px;
-    cursor: pointer;
-}
-
-/* Hero Section */
-.hero-section {
-    padding: 25px 15px;
-    text-align: center;
-    background: linear-gradient(180deg, #121216 0%, #0a0a0c 100%);
-}
-
-.hero-title {
-    font-size: 20px;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    background: linear-gradient(90deg, #ffffff 0%, #b5b5bd 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
 }
 
-.live-stats {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+.plus-icon {
+    color: var(--text-gray);
     font-size: 12px;
-    color: var(--text-muted);
-}
-
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #00ff66;
-    border-radius: 50%;
-    display: inline-block;
-    align-self: center;
-    box-shadow: 0 0 8px #00ff66;
-}
-
-/* Quick Actions Grid */
-.quick-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 0 15px 20px 15px;
-}
-
-.action-card {
-    background: var(--panel-dark);
-    border: 1px solid #22222a;
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-main);
-    font-size: 13px;
-    font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s;
 }
 
-.action-card:active {
-    transform: scale(0.95);
+.icon-notification {
+    position: relative;
+    font-size: 18px;
+    color: var(--text-gray);
 }
 
-.action-icon {
-    font-size: 24px;
+.noti-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 6px;
+    height: 6px;
+    background: #ef4444;
+    border-radius: 50%;
 }
 
-/* Time Controls Section */
-.time-controls-section {
-    padding: 0 15px;
-    flex-grow: 1;
+.menu-dots {
+    color: var(--text-gray);
+    font-size: 18px;
 }
 
-.section-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-}
-
-.time-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding-bottom: 30px;
-}
-
-.time-card {
-    background: linear-gradient(135deg, #131318 0%, #1a1a24 100%);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 14px;
-    padding: 16px;
+/* ==================== HERO HERO HERO BANNER ==================== */
+.banner-hero {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    padding: 25px 20px;
+    background: radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.08) 0%, rgba(5, 5, 7, 0) 60%);
 }
 
-.time-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--accent-blue);
-    opacity: 0.7;
-}
-
-.time-card[data-type="Bullet"]::before { background: #ff4757; }
-.time-card[data-type="Blitz"]::before { background: #ffa500; }
-.time-card[data-type="Rapid"]::before { background: #2ed573; }
-
-.time-card h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
+.banner-text h1 {
+    font-size: 26px;
     font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
 }
 
-.time-card p {
+.gold-gradient-text {
+    background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.online-indicator-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 11px;
+    color: var(--text-gray);
+    margin-top: 10px;
+}
+
+.live-dot-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.live-dot {
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+}
+
+.live-divider {
     color: var(--text-muted);
 }
 
-.card-icon {
-    font-size: 20px;
-    opacity: 0.15;
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
+.banner-img-box img {
+    width: 80px;
+    height: auto;
+    filter: drop-shadow(0px 10px 20px rgba(245,158,11,0.3));
 }
 
-/* ==================== GAME SCREEN ==================== */
+/* ==================== DASHBOARD TIMECONTROL CARDS GIGS ==================== */
+.dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 15px;
+}
+
+/* Base Style for Big Strategy Panels */
+.game-main-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.card-main-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+/* Color Themes Matching User UI Image */
+.purple-theme .icon-circle { background: rgba(130, 87, 229, 0.15); color: var(--accent-purple); }
+.purple-theme { border-left: 3px solid var(--accent-purple); }
+
+.blue-theme .icon-circle { background: rgba(36, 138, 255, 0.15); color: var(--accent-blue); }
+.blue-theme { border-left: 3px solid var(--accent-blue); }
+
+.green-theme .icon-circle { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+.green-theme { border-left: 3px solid var(--accent-green); }
+
+.header-titles h3 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.header-titles p {
+    font-size: 11px;
+    color: var(--text-gray);
+}
+
+/* Internal Split Boxes Layout */
+.card-split-modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.sub-mode-box {
+    background: var(--sub-box-bg);
+    border-radius: 12px;
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.sub-mode-box h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.sub-mode-box .sub-desc {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    display: block;
+}
+
+.entry-tag {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* Entry Fee Grid Design */
+.coin-options-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+}
+
+.coin-options-row span {
+    background: rgba(255, 255, 255, 0.04);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 0;
+    text-align: center;
+    border-radius: 4px;
+    color: var(--accent-gold);
+}
+
+/* Background watermark icons */
+.gift-icon, .coins-stack-icon {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 22px;
+    opacity: 0.08;
+    color: white;
+}
+
+/* View Tournaments Big Button */
+.view-tournaments-btn {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: var(--accent-green);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* ==================== WIDGETS (DAILY REWARD & WATCH AD) ==================== */
+.widgets-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+    padding-bottom: 20px;
+}
+
+.widget-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.widget-card h4 {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-gray);
+    margin-bottom: 10px;
+}
+
+.gift-box-art {
+    font-size: 28px;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 4px 10px rgba(245,158,11,0.2));
+}
+
+.circular-progress-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-purple);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: var(--accent-purple);
+    margin-bottom: 6px;
+}
+
+.reward-amount {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-gold);
+}
+
+.ad-count {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.claim-btn, .watch-btn {
+    width: 100%;
+    border: none;
+    padding: 6px 0;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.claim-btn { background: var(--accent-gold-gradient); color: #000; }
+.watch-btn { background: rgba(130, 87, 229, 0.2); color: #a78bfa; border: 1px solid rgba(130, 87, 229, 0.3); }
+
+/* ==================== BOTTOM SYSTEM NAVIGATION FIXED BAR ==================== */
+.bottom-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: #09090d;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 90;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.nav-item i {
+    font-size: 18px;
+}
+
+.nav-item span {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.nav-item.active {
+    color: var(--accent-gold);
+}
+
+/* ==================== REAL GAME MATCH SCREEN OVERLAYS ==================== */
+.game-top-bar {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: var(--card-bg);
+}
+
+.back-to-lobby-btn {
+    background: none;
+    border: none;
+    color: var(--accent-gold);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.game-title-text {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+    margin-right: 40px;
+}
 
 .player-panel {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
-    background: #111115;
+    background: #0d0d12;
 }
 
 .player-details {
@@ -279,44 +497,36 @@ body {
     background: #222;
 }
 
-.game-username {
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.game-rating {
-    font-size: 11px;
-    color: var(--accent-gold);
-}
+.game-username { font-size: 13px; font-weight: 600; }
+.game-rating { font-size: 11px; color: var(--accent-gold); }
 
 .game-timer {
     font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
-    background: #1a1a22;
+    background: #161622;
     padding: 4px 10px;
     border-radius: 6px;
-    border: 1px solid #2d2d3d;
-    color: var(--text-muted);
+    color: var(--text-gray);
+    border: 1px solid #272736;
 }
 
 .active-timer {
-    color: #00ff66;
-    border-color: rgba(0, 255, 102, 0.4);
-    box-shadow: 0 0 8px rgba(0, 255, 102, 0.2);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
 }
 
-/* Wooden Chess Board */
+/* Chess Board Setup */
 .chess-arena-wrapper {
     width: 100vw;
     height: 100vw;
     max-width: 450px;
     max-height: 450px;
-    margin: 10px auto;
-    padding: 5px;
-    background: #5c3a21; /* Outer Wood Border */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-    border-radius: 4px;
+    margin: 15px auto;
+    padding: 4px;
+    background: #4a2f1b; /* Real wood outer layer border */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.7);
 }
 
 .wooden-board {
@@ -331,193 +541,41 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    user-select: none;
 }
 
 .square.light { background-color: var(--board-light); }
 .square.dark { background-color: var(--board-dark); }
 
-/* Highlights & Move Indicators */
-.square.selected {
-    background-color: var(--highlight-selected) !important;
-}
-
-.square.last-move {
-    background-color: rgba(255, 255, 0, 0.3) !important;
-}
-
-.legal-dot {
-    width: 14px;
-    height: 14px;
-    background-color: rgba(0, 210, 255, 0.5);
-    border-radius: 50%;
-    pointer-events: none;
-}
+.square.selected { background-color: rgba(245, 158, 11, 0.45) !important; }
+.square.last-move { background-color: rgba(36, 138, 255, 0.35) !important; }
 
 .piece {
     width: 90%;
     height: 90%;
     object-fit: contain;
     z-index: 5;
-    cursor: grab;
-    transition: transform 0.1s ease;
-}
-
-.piece:active { cursor: grabbing; }
-
-/* Bottom Controls Layout */
-.game-controls {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    padding: 10px 15px;
-    gap: 10px;
-}
-
-.move-log-container {
-    background: #111115;
-    border-radius: 8px;
-    padding: 10px;
-    flex-grow: 1;
-    min-height: 60px;
-    max-height: 100px;
-    overflow-y: auto;
-    border: 1px solid #1f1f26;
-}
-
-.move-log-title {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-family: 'Orbitron', sans-serif;
-    margin-bottom: 5px;
-}
-
-.moves-list {
-    font-size: 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    color: #c4c4cc;
+    font-size: 34px;
+    text-align: center;
+    line-height: 1;
+    cursor: pointer;
 }
 
 .control-action-buttons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 15px;
 }
 
 .control-btn {
     border: none;
     border-radius: 8px;
-    padding: 12px 5px;
-    font-size: 12px;
+    padding: 12px 0;
+    font-size: 13px;
     font-weight: 600;
     color: white;
     cursor: pointer;
 }
 
-.btn-danger { background: #ff4757; }
-.btn-warn { background: #ffa500; }
-.btn-normal { background: #2f3542; }
-
-/* ==================== PREMIUM MODAL POPUP ==================== */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 100;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s sub, visibility 0.3s;
-}
-
-.modal-overlay.open {
-    visibility: visible;
-    opacity: 1;
-}
-
-.modal-content {
-    background: #121218;
-    width: 100%;
-    max-width: 500px;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    padding: 20px;
-    border-top: 2px solid var(--accent-gold);
-    transform: translateY(100%);
-    transition: transform 0.3s ease-out;
-}
-
-.modal-overlay.open .modal-content {
-    transform: translateY(0);
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.modal-header h3 {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--accent-gold);
-}
-
-.close-modal-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 28px;
-    cursor: pointer;
-}
-
-.modal-subtitle {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-}
-
-.modal-options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding-bottom: 15px;
-}
-
-.modal-card-btn {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: #1a1a24;
-    border: 1px solid #2a2a38;
-    padding: 15px;
-    border-radius: 14px;
-    color: white;
-    text-align: left;
-    cursor: pointer;
-}
-
-.mode-icon-box {
-    width: 45px;
-    height: 45px;
-    background: #222232;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-}
-
-.free-btn .mode-icon-box { color: var(--accent-blue); }
-.paid-btn .mode-icon-box { color: var(--accent-gold); }
-
-.mode-text h4 { font-size: 15px; margin-bottom: 2px;}
-.mode-text p { font-size: 11px; color: var(--text-muted); }
+.btn-danger { background: #ef4444; }
+.btn-normal { background: #1f2937; border: 1px solid rgba(255,255,255,0.05); }
