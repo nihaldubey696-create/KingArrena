@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KingArena — Premium Esports Chess</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="home-screen" class="screen active">
+        <header class="top-bar">
+            <div class="user-profile">
+                <div class="avatar-wrapper">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=King" alt="Avatar" class="avatar">
+                </div>
+                <div class="user-meta">
+                    <span class="username">Nihal_Dubey</span>
+                    <span class="rating-badge"><i class="fas fa-bolt"></i> 1250</span>
+                </div>
+            </div>
+            <div class="top-actions">
+                <div class="coin-balance">
+                    <i class="fas fa-coins gold-color"></i>
+                    <span>500</span>
+                </div>
+                <button class="icon-btn"><i class="fas fa-bell"></i></button>
+                <button class="icon-btn"><i class="fas fa-cog"></i></button>
+            </div>
+        </header>
+
+        <section class="hero-section">
+            <h1 class="hero-title">Play Chess • Win Coins • Improve Daily</h1>
+            <div class="live-stats">
+                <span class="stat-item"><span class="pulse-dot"></span> 14,205 Online</span>
+                <span class="stat-item"><i class="fas fa-trophy gold-color"></i> 12 Active Tournaments</span>
+            </div>
+        </section>
+
+        <section class="quick-actions">
+            <button class="action-card" id="btn-challenge-friend">
+                <i class="fas fa-user-friends action-icon neon-blue"></i>
+                <span>Challenge Friend</span>
+            </button>
+            <button class="action-card" id="btn-create-lobby">
+                <i class="fas fa-plus-circle action-icon gold-color"></i>
+                <span>Create Lobby</span>
+            </button>
+        </section>
+
+        <section class="time-controls-section">
+            <h2 class="section-title">Select Arena Time Control</h2>
+            <div class="time-grid">
+                <div class="time-card" data-time="1+0" data-type="Bullet">
+                    <div class="time-info"><h3>1+0</h3><p>Bullet</p></div>
+                    <i class="fas fa-running card-icon"></i>
+                </div>
+                <div class="time-card" data-time="2+1" data-type="Bullet">
+                    <div class="time-info"><h3>2+1</h3><p>Bullet</p></div>
+                    <i class="fas fa-bolt card-icon"></i>
+                </div>
+                <div class="time-card" data-time="3+0" data-type="Blitz">
+                    <div class="time-info"><h3>3+0</h3><p>Blitz</p></div>
+                    <i class="fas fa-fire card-icon"></i>
+                </div>
+                <div class="time-card" data-time="3+2" data-type="Blitz">
+                    <div class="time-info"><h3>3+2</h3><p>Blitz</p></div>
+                    <i class="fas fa-shield-alt card-icon"></i>
+                </div>
+                <div class="time-card" data-time="5+0" data-type="Blitz">
+                    <div class="time-info"><h3>5+0</h3><p>Blitz</p></div>
+                    <i class="fas fa-hourglass-half card-icon"></i>
+                </div>
+                <div class="time-card" data-time="10+0" data-type="Rapid">
+                    <div class="time-info"><h3>10+0</h3><p>Rapid</p></div>
+                    <i class="fas fa-stopwatch card-icon"></i>
+                </div>
+                <div class="time-card" data-time="15+10" data-type="Rapid">
+                    <div class="time-info"><h3>15+10</h3><p>Rapid</p></div>
+                    <i class="fas fa-clock card-icon"></i>
+                </div>
+                <div class="time-card" data-time="30+0" data-type="Classical">
+                    <div class="time-info"><h3>30+0</h3><p>Classical</p></div>
+                    <i class="fas fa-chess-knight card-icon"></i>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="player-panel opponent-panel">
+            <div class="player-details">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Opponent" alt="Opponent" class="game-avatar">
+                <div>
+                    <div class="game-username">Grandmaster_X</div>
+                    <div class="game-rating">🏆 1280</div>
+                </div>
+            </div>
+            <div class="captured-pieces" id="opponent-captured"></div>
+            <div class="game-timer" id="opponent-timer">05:00</div>
+        </div>
+
+        <div class="chess-arena-wrapper">
+            <div id="kingarena-board" class="wooden-board">
+                </div>
+        </div>
+
+        <div class="player-panel user-panel">
+            <div class="player-details">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=King" alt="You" class="game-avatar">
+                <div>
+                    <div class="game-username">Nihal_Dubey (You)</div>
+                    <div class="game-rating">🏆 1250</div>
+                </div>
+            </div>
+            <div class="captured-pieces" id="user-captured"></div>
+            <div class="game-timer active-timer" id="user-timer">05:00</div>
+        </div>
+
+        <div class="game-controls">
+            <div class="move-log-container">
+                <div class="move-log-title">Moves History</div>
+                <div id="move-list" class="moves-list">
+                    </div>
+            </div>
+            <div class="control-action-buttons">
+                <button class="control-btn btn-danger" id="btn-resign"><i class="fas fa-flag"></i> Resign</button>
+                <button class="control-btn btn-warn" id="btn-draw"><i class="fas fa-handshake"></i> Offer Draw</button>
+                <button class="control-btn btn-normal" id="btn-flip"><i class="fas fa-sync"></i> Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="match-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-game-mode">3+0 Blitz</h3>
+                <button class="close-modal-btn" id="close-modal">&times;</button>
+            </div>
+            <p class="modal-subtitle">Choose your battle stakes</p>
+            <div class="modal-options">
+                <button class="modal-card-btn free-btn" id="start-free-match">
+                    <div class="mode-icon-box"><i class="fas fa-medal"></i></div>
+                    <div class="mode-text">
+                        <h4>Free Match</h4>
+                        <p>Earn rating points & win streak</p>
+                    </div>
+                </button>
+                <button class="modal-card-btn paid-btn" id="start-paid-match">
+                    <div class="mode-icon-box"><i class="fas fa-coins gold-color"></i></div>
+                    <div class="mode-text">
+                        <h4>Coin Match</h4>
+                        <p>Entry: 20 Coins • Win: 35 Coins</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+8
